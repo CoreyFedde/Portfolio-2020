@@ -2,11 +2,20 @@ html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  height: 100%;
 }
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+}
+#gatsby-focus-wrapper,
+#___gatsby,
+main,
+.tl-edges,
+.tl-wrapper {
+  height: 100%;
 }
 article,
 aside,
