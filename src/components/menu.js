@@ -68,9 +68,11 @@ const MenuWrap = styled.div`
 `
 const Active = styled.div`
   position: relative;
-  background-color: white;
+  background: white;
   flex: 1;
   order: 100;
+  z-index: 1;
+
   div {
     position: absolute;
     bottom: 50%;
@@ -79,17 +81,75 @@ const Active = styled.div`
     transform-origin: 100% 100%;
     transform: rotate(90deg);
   }
+  &:after {
+    width: 0%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: yellow;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 1s 1s;
+  }
+
+  ${MenuWrap}:hover &:after {
+    width: 100%;
+  }
+  ${MenuWrap}:not(:hover) &:after {
+    transition: all 0.3s;
+  }
 `
 
 const StyledLink = styled(Link)`
   height: 0;
   transition: height 1s;
-  &:hover {
-    background-color: blue;
+  position: relative;
+  z-index: 0;
+
+  &:before {
+    width: 0%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: blue;
+    content: "";
+    position: absolute;
+    z-index: -1;
+  }
+
+  &:after {
+    width: 0%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: yellow;
+    content: "";
+    position: absolute;
+    z-index: -2;
   }
 
   ${MenuWrap}:hover & {
     height: 40px;
-    transition: height 1s;
+    transition: height 1s, background 0.1s 2s;
+    background: yellow;
+  }
+
+  ${MenuWrap}:hover &:after {
+    width: 100%;
+    transition: width 1s 1s;
+    background: yellow;
+  }
+
+  &:hover {
+    background: yellow;
+  }
+
+  &:hover:before {
+    width: 100%;
+    left: 0;
+    transition: width 0.3s;
   }
 `
