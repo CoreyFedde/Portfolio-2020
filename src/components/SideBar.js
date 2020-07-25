@@ -1,20 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 
-class SideBar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { isHovered: false, isClicked: false }
-  }
-
-  render() {
-    return (
-      <MainNav>
-        THIS IS SOME TEST TEXT <VerticalLine />
-      </MainNav>
-    )
-  }
-}
+const SideBar = ({ pathname }) => (
+  <MainNav>
+    {pathname || "test"}
+    <VerticalLine />
+  </MainNav>
+)
 
 export default SideBar
 
