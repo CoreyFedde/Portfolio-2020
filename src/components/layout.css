@@ -10,13 +10,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
 }
-#gatsby-focus-wrapper,
+/* #gatsby-focus-wrapper,
 #___gatsby,
 main,
 .tl-edges,
 .tl-wrapper {
   height: 100%;
-}
+} */
 article,
 aside,
 details,

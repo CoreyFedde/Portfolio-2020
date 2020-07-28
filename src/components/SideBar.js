@@ -1,17 +1,21 @@
 import React from "react"
 import styled from "styled-components"
+import { pages } from "./menu-top"
+import _ from "lodash"
 
-const SideBar = ({ pathname }) => (
-  <MainNav>
-    {pathname || "test"}
-    <VerticalLine />
-  </MainNav>
-)
+const SideBar = ({ location }) => {
+  const title = _.find(pages, { route: `${location.pathname}` })
+  return (
+    <MainNav>
+      {title.page || "test"}
+      <VerticalLine />
+    </MainNav>
+  )
+}
 
 export default SideBar
 
 const MainNav = styled.div`
-  height: 100%;
   writing-mode: vertical-rl;
   position: relative;
   text-orientation: mixed;

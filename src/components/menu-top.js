@@ -2,11 +2,9 @@ import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 
-const pages = [
-  { page: "Home", route: "/" },
-  { page: "Work", route: "/work" },
+export const pages = [
+  { page: "Work", route: "/" },
   { page: "About", route: "/about" },
-  { page: "Contact", route: "/contact" },
 ]
 
 const Menu = () => (
@@ -22,12 +20,12 @@ const Menu = () => (
 export default Menu
 
 const MenuWrap = styled.div`
-  display: flex;
-  flex-direction: row;
+  margin-left: 30px;
+  margin-top: 20px;
 `
 
 const StyledLink = styled(Link)`
-  flex: 1;
+  margin: 20px;
   .active {
     border-bottom: 2px solid black;
   }
