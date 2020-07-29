@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import Grid from "styled-components-grid"
 import Edges from "./Edges"
-import Slide from "./Slide"
+import AnimatedPage from "./AnimatedPage"
 
 import "./layout.css"
 import Menu from "./menu-top"
@@ -26,33 +26,16 @@ const Layout = ({ children }) => {
     <LayoutStyles>
       {console.log("children", children)}
       <Edges>
-        <StyledGrid>
-          <Grid.Unit
-            size={0.75 / 5}
-            style={{ backgroundColor: "yellow", display: "flex" }}
-          >
-            <Location>
-              {({ location }) => <SideBar location={location} />}
-            </Location>
-          </Grid.Unit>
-          <Grid.Unit
-            size={4 / 5}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              position: "relative",
-            }}
-          >
+        <FlexFrame>
+          <Location>
+            {({ location }) => <SideBar location={location} />}
+          </Location>
+          <MainSpace>
             <Menu />
-            <Slide>
-              <Page>{children}</Page>
-            </Slide>
-          </Grid.Unit>
-          <Grid.Unit
-            size={0.25 / 5}
-            style={{ backgroundColor: "yellow", display: "flex" }}
-          />
-        </StyledGrid>
+            <AnimatedPage>{children}</AnimatedPage>
+          </MainSpace>
+          <InfoBar />
+        </FlexFrame>
       </Edges>
     </LayoutStyles>
   )
@@ -63,10 +46,30 @@ Layout.propTypes = {
 }
 export default Layout
 
+const InfoBar = styled.div`
+  width: 100px;
+  background: yellow;
+`
+
+const MainSpace = styled.main`
+  flex: 1;
+  height: 100%;
+`
+
+const FlexFrame = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+`
+
 const Page = styled.div`
+  width: 900px;
+  height: 900px;
+  left: calc(50% - 450px);
+  position: absolute;
   background-color: lightgrey;
   box-shadow: -20px 26px 2px 7px rgba(0, 0, 255, 0.2);
-  margin: 50px;
+  margin: 50px 30px;
   padding: 50px;
 `
 
@@ -82,9 +85,45 @@ const LayoutStyles = styled.section`
   min-height: 100vh;
   display: flex;
   align-items: center;
+  position: relative;
 `
 
 const StyledGrid = styled(Grid)`
   display: flex;
   flex: 1;
 `
+
+{
+  /* <StyledGrid>
+          <Grid.Unit
+            size={1 / 5}
+            style={{
+              backgroundColor: "yellow",
+              display: "flex",
+              width: "300px",
+              minWidth: "300px",
+            }}
+          >
+            <Location>
+              {({ location }) => <SideBar location={location} />}
+            </Location>
+          </Grid.Unit>
+          <Grid.Unit
+            size={4 / 5}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              position: "relative",
+            }}
+          >
+            <Menu />
+            <AnimatedPage>
+              <Page>{children}</Page>
+            </AnimatedPage>
+          </Grid.Unit>
+          <Grid.Unit
+            size={0.25 / 5}
+            style={{ backgroundColor: "yellow", display: "flex" }}
+          />
+        </StyledGrid> */
+}

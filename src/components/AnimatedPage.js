@@ -1,24 +1,12 @@
 import React from "react"
 import PageTransition from "gatsby-plugin-page-transitions"
 import Transition from "react-transition-group/Transition"
+import styled from "styled-components"
 
 const pageTransitionEvent = "gatsby-plugin-page-transition::exit"
 const duration = 300
 
-const defaultStyle = {
-  position: "relative",
-  transition: `left ${duration}ms ease-in-out`,
-  left: "-50%",
-}
-
-const transitionStyles = {
-  entering: { left: 0 },
-  entered: { left: 0 },
-  exiting: { left: "50%" },
-  exited: { left: "50%" },
-}
-
-class Slide extends React.Component {
+class AnimatedPage extends React.Component {
   constructor(props) {
     super(props)
     this.listenHandler = this.listenHandler.bind(this)
@@ -48,20 +36,27 @@ class Slide extends React.Component {
     return (
       <PageTransition duration={duration}>
         <Transition in={this.state.in} timeout={1000}>
-          {state => (
-            <div
-              style={{
-                ...defaultStyle,
-                ...transitionStyles[state],
-              }}
-            >
-              {this.props.children}
-            </div>
-          )}
+          {state => <Page transitionState={state}>{this.props.children}</Page>}
         </Transition>
       </PageTransition>
     )
   }
 }
 
-export default Slide
+const Page = styled.div`
+  transition: left ${duration}ms ease-in-out;
+  width: 900px;
+  height: 900px;
+  left: 50%;
+  position: absolute;
+  background-color: lightgrey;
+  box-shadow: -20px 26px 2px 7px rgba(0, 0, 255, 0.2);
+  margin: 50px 30px;
+  padding: 50px;
+  left: ${({ transitionState }) =>
+    transitionState === "entering" || transitionState === "entered"
+      ? "calc(50% - 450px)"
+      : {}};
+`
+
+export default AnimatedPage

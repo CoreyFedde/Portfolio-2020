@@ -10,7 +10,7 @@ const Section = styled.section`
   width: 1800px;
   max-width: 90%;
   margin: 0 auto;
-  // height: 70vh;
+  min-height: 80vh;
   display: flex;
   ${props => (props.medium ? "max-width: 75%; width: 1000px" : "")};
 `

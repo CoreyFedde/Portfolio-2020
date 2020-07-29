@@ -5,12 +5,7 @@ import _ from "lodash"
 
 const SideBar = ({ location }) => {
   const title = _.find(pages, { route: `${location.pathname}` })
-  return (
-    <MainNav>
-      {title.page || "test"}
-      <VerticalLine />
-    </MainNav>
-  )
+  return <MainNav>{title.page || "test"}</MainNav>
 }
 
 export default SideBar
@@ -22,8 +17,9 @@ const MainNav = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 100%;
+  width: 300px;
   font-size: 64px;
+  background: yellow;
 `
 
 const VerticalLine = styled.div`

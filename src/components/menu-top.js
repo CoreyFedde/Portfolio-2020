@@ -25,7 +25,7 @@ const MenuWrap = styled.div`
 `
 
 const StyledLink = styled(Link)`
-  margin: 20px;
+  margin-right: 30px;
   .active {
     border-bottom: 2px solid black;
   }
