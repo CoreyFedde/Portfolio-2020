@@ -12,5 +12,6 @@ const Section = styled.section`
   margin: 0 auto;
   min-height: 80vh;
   display: flex;
+  justify-content: center;
   ${props => (props.medium ? "max-width: 75%; width: 1000px" : "")};
 `

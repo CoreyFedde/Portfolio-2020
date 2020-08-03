@@ -45,8 +45,11 @@ class AnimatedPage extends React.Component {
 
 const Page = styled.div`
   transition: left ${duration}ms ease-in-out;
-  width: 900px;
-  height: 900px;
+  // max-width: 900px;
+  min-width: 900px;
+  // width: 70%;
+  width: 100%;
+  height: 650px;
   left: 50%;
   position: absolute;
   background-color: lightgrey;
@@ -55,7 +58,7 @@ const Page = styled.div`
   padding: 50px;
   left: ${({ transitionState }) =>
     transitionState === "entering" || transitionState === "entered"
-      ? "calc(50% - 450px)"
+      ? "calc(-10% - 26px)"
       : {}};
 `
 
