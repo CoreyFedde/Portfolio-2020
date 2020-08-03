@@ -45,9 +45,7 @@ class AnimatedPage extends React.Component {
 
 const Page = styled.div`
   transition: left ${duration}ms ease-in-out;
-  // max-width: 900px;
   min-width: 900px;
-  // width: 70%;
   width: 100%;
   height: 650px;
   left: 50%;

@@ -1,9 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
-import styled from "styled-components"
-import Grid from "styled-components-grid"
+import styled, { ThemeProvider } from "styled-components"
 import Edges from "./Edges"
 import AnimatedPage from "./AnimatedPage"
+import breakpoint from "styled-components-breakpoint"
 
 import "./layout.css"
 import Menu from "./menu-top"
@@ -16,26 +16,28 @@ const theme = {
     sm: 576,
     md: 768,
     lg: 992,
-    xl: 1200,
-    xxl: 1800,
+    xl: 1100,
+    xxl: 1300,
   },
 }
 
 const Layout = ({ children }) => {
   return (
-    <LayoutStyles>
-      {console.log("children", children)}
-      <Location>{({ location }) => <SideBar location={location} />}</Location>
-      <Edges>
-        <MainSpace>
-          <Backdrop>
-            <Menu />
-            <AnimatedPage>{children}</AnimatedPage>
-          </Backdrop>
-        </MainSpace>
-      </Edges>
-      <InfoBar>Corey Fedde</InfoBar>
-    </LayoutStyles>
+    <ThemeProvider theme={theme}>
+      <LayoutStyles>
+        {console.log("children", children)}
+        <Location>{({ location }) => <SideBar location={location} />}</Location>
+        <Edges>
+          <MainSpace>
+            <Backdrop>
+              <Menu />
+              <AnimatedPage>{children}</AnimatedPage>
+            </Backdrop>
+          </MainSpace>
+        </Edges>
+        <InfoBar>Corey Fedde</InfoBar>
+      </LayoutStyles>
+    </ThemeProvider>
   )
 }
 
@@ -58,7 +60,6 @@ const InfoBar = styled.div`
 
 const MainSpace = styled.main`
   flex: 1;
-  // height: 100%;
   display: flex;
   justify-content: flex-end;
   max-width: 80%;
@@ -67,38 +68,34 @@ const MainSpace = styled.main`
 
 const Backdrop = styled.div`
   background: yellow;
-  // width: 900px;
   min-width: 900px;
   flex: 1;
   left: 5%;
   display: flex;
   flex-direction: column;
   position: relative;
-`
-
-const FlexFrame = styled.div`
-  position: relative;
-  display: flex;
-  width: 100%;
-`
-
-const Card = styled.div`
-  background-color: gray;
-  box-shadow: -20px 26px 2px 7px rgba(0, 0, 255, 0.2);
-  height: 250px;
-  width: 250px;
+  ${breakpoint("xl")`
+    background: white;
+  `}
+  ${breakpoint("xxl")`
+    background: yellow;
+  `}
 `
 
 const LayoutStyles = styled.section`
+  z-index: -2;
   min-height: 100vh;
   display: flex;
   align-items: center;
   position: relative;
-`
 
-const StyledGrid = styled(Grid)`
-  display: flex;
-  flex: 1;
+  ${breakpoint("xl")`
+    background: yellow;
+  `}
+
+  ${breakpoint("xxl")`
+  background: white;
+`}
 `
 
 {
