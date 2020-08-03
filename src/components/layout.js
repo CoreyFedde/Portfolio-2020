@@ -25,18 +25,18 @@ const Layout = ({ children }) => {
   return (
     <LayoutStyles>
       {console.log("children", children)}
+      <Location>{({ location }) => <SideBar location={location} />}</Location>
       <Edges>
         <FlexFrame>
-          <Location>
-            {({ location }) => <SideBar location={location} />}
-          </Location>
           <MainSpace>
-            <Menu />
+            <Backdrop>
+              <Menu />
+            </Backdrop>
             <AnimatedPage>{children}</AnimatedPage>
           </MainSpace>
-          <InfoBar />
         </FlexFrame>
       </Edges>
+      <InfoBar>Corey Fedde</InfoBar>
     </LayoutStyles>
   )
 }
@@ -47,13 +47,26 @@ Layout.propTypes = {
 export default Layout
 
 const InfoBar = styled.div`
-  width: 100px;
-  background: yellow;
+  width: 64px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-size: 64px;
 `
 
 const MainSpace = styled.main`
   flex: 1;
   height: 100%;
+  display: flex;
+  justify-content: flex-end;
+`
+
+const Backdrop = styled.div`
+  background: yellow;
+  width: 900px;
 `
 
 const FlexFrame = styled.div`

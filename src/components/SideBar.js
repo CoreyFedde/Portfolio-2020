@@ -11,15 +11,17 @@ const SideBar = ({ location }) => {
 export default SideBar
 
 const MainNav = styled.div`
+  left: 0;
   writing-mode: vertical-rl;
-  position: relative;
+  position: absolute;
   text-orientation: mixed;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 300px;
+  width: 64px;
   font-size: 64px;
-  background: yellow;
+  background: white;
+  bottom: 0;
 `
 
 const VerticalLine = styled.div`

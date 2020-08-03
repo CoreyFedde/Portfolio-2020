@@ -7,7 +7,7 @@ export default function Edges(props) {
 }
 
 const Section = styled.section`
-  width: 1800px;
+  width: 1500px;
   max-width: 90%;
   margin: 0 auto;
   min-height: 80vh;
