@@ -20,8 +20,7 @@ const Menu = () => (
 export default Menu
 
 const MenuWrap = styled.div`
-  margin-left: 30px;
-  margin-top: 20px;
+  margin: 0;
 `
 
 const StyledLink = styled(Link)`

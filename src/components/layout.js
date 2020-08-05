@@ -7,7 +7,7 @@ import breakpoint from "styled-components-breakpoint"
 
 import "./layout.css"
 import Menu from "./menu-top"
-import SideBar from "./Sidebar"
+import SideBar, { MainNav } from "./Sidebar"
 import { Location, Router } from "@reach/router"
 
 const theme = {
@@ -26,11 +26,18 @@ const Layout = ({ children }) => {
     <ThemeProvider theme={theme}>
       <LayoutStyles>
         {console.log("children", children)}
-        <Location>{({ location }) => <SideBar location={location} />}</Location>
+        <Location>
+          {({ location }) => <SideBar side location={location} />}
+        </Location>
         <Edges>
           <MainSpace>
             <Backdrop>
-              <Menu />
+              <Header>
+                <Menu />
+                <Location>
+                  {({ location }) => <SideBar location={location} />}
+                </Location>
+              </Header>
               <AnimatedPage>{children}</AnimatedPage>
             </Backdrop>
           </MainSpace>
@@ -46,7 +53,20 @@ Layout.propTypes = {
 }
 export default Layout
 
+const Header = styled.div`
+  background: yellow;
+
+  ${breakpoint("sm")`
+  height: 200px;
+  `}
+  ${breakpoint("xl")`
+  height: initial;
+  background: none;
+  `}
+`
+
 const InfoBar = styled.div`
+  display: none;
   width: 64px;
   position: absolute;
   right: 0;
@@ -56,29 +76,39 @@ const InfoBar = styled.div`
   transform: rotate(180deg);
   font-size: 64px;
   z-index: -1;
+  ${breakpoint("xl")`
+    display: block;
+  `}
 `
 
 const MainSpace = styled.main`
   flex: 1;
   display: flex;
   justify-content: flex-end;
+
+  ${breakpoint("xl")`
   max-width: 80%;
   min-width: 900px;
+  `}
 `
 
 const Backdrop = styled.div`
-  background: yellow;
-  min-width: 900px;
   flex: 1;
-  left: 5%;
   display: flex;
   flex-direction: column;
   position: relative;
+  top: 0;
+  left: 0;
   ${breakpoint("xl")`
+  background: yellow;
+    top: 100px;
     background: white;
+    left: 2%;
+    min-width: 900px;
   `}
   ${breakpoint("xxl")`
     background: yellow;
+    left: 5%;
   `}
 `
 
@@ -86,11 +116,11 @@ const LayoutStyles = styled.section`
   z-index: -2;
   min-height: 100vh;
   display: flex;
-  align-items: center;
   position: relative;
 
   ${breakpoint("xl")`
     background: yellow;
+    align-items: center;
   `}
 
   ${breakpoint("xxl")`
