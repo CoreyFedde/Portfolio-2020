@@ -48,6 +48,9 @@ const Layout = ({ children }) => {
   )
 }
 
+// When we get to sm, lets render a menu with transition links to do the ink transition
+// In the empty html page can we let the user write or something or add some sparkles?
+
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
@@ -57,7 +60,8 @@ const Header = styled.div`
   background: yellow;
 
   ${breakpoint("sm")`
-  height: 200px;
+  height: 150px;
+  position: relative;
   `}
   ${breakpoint("xl")`
   height: initial;
@@ -66,16 +70,17 @@ const Header = styled.div`
 `
 
 const InfoBar = styled.div`
-  display: none;
-  width: 64px;
-  position: absolute;
-  right: 0;
-  top: 0;
+  left: 0;
   writing-mode: vertical-rl;
+  position: absolute;
   text-orientation: mixed;
-  transform: rotate(180deg);
+  justify-content: flex-end;
+  align-items: center;
+  width: 64px;
   font-size: 64px;
+  bottom: 10px;
   z-index: -1;
+  font-weight: 300;
   ${breakpoint("xl")`
     display: block;
   `}
@@ -84,7 +89,7 @@ const InfoBar = styled.div`
 const MainSpace = styled.main`
   flex: 1;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 
   ${breakpoint("xl")`
   max-width: 80%;
@@ -99,16 +104,19 @@ const Backdrop = styled.div`
   position: relative;
   top: 0;
   left: 0;
+  background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/geometry2.png);
+
   ${breakpoint("xl")`
   background: yellow;
-    top: 100px;
-    background: white;
+    top: 50px;
     left: 2%;
     min-width: 900px;
+    height: 90%;
   `}
   ${breakpoint("xxl")`
-    background: yellow;
-    left: 5%;
+    left: 4%;
+    max-width: 1200px;
+    
   `}
 `
 
@@ -117,15 +125,14 @@ const LayoutStyles = styled.section`
   min-height: 100vh;
   display: flex;
   position: relative;
+  font-family: "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
 
   ${breakpoint("xl")`
-    background: yellow;
-    align-items: center;
-  `}
+  background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/geometry2.png);
 
-  ${breakpoint("xxl")`
-  background: white;
-`}
+    // align-items: center;
+  `}
 `
 
 {

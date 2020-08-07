@@ -58,7 +58,7 @@ const Page = styled.div`
       transitionState === "entering" || transitionState === "entered"
         ? "0"
         : {}};
-        margin-top: -100px;
+        margin-top: -50px;
   `}
 
   ${breakpoint("md")`
@@ -75,6 +75,7 @@ const Page = styled.div`
   width: 100%;
   min-width: 900px;
   margin: 50px 30px;
+  margin-top: 0;
   padding: 50px;
     left: ${({ transitionState }) =>
       transitionState === "entering" || transitionState === "entered"
@@ -82,9 +83,10 @@ const Page = styled.div`
         : {}};
     `}
   ${breakpoint("xxl")`
+  max-width: 1200px;
   left: ${({ transitionState }) =>
     transitionState === "entering" || transitionState === "entered"
-      ? "calc(-10% - 26px)"
+      ? "calc(-8% - 26px)"
       : {}};
     `}
 `

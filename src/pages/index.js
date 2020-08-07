@@ -14,12 +14,12 @@ const IndexPage = () => (
     <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
       <Image />
     </div>
-    {/* <Slider>
+    <Slider>
       <Box />
       <Box />
       <Box />
       <Box />
-    </Slider> */}
+    </Slider>
   </Layout>
 )
 

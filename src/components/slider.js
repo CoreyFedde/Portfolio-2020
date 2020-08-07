@@ -6,39 +6,32 @@ import ReactDOM from "react-dom"
 class Slider extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { position: 0, lastScroll: 0 }
+    this.state = { position: 1, lastScroll: 0 }
     this.scrollWindow = React.createRef()
+    // Any scroll within 5000 ms counts as 1
+    this.throttled = _.throttle(e => this.handleScroll(e), 5000, {
+      trailing: true,
+    })
   }
 
-  // Will need to add in wheel, but can we find a way to only track scroll when scroll on that thing?
+  // Add in logic for gesture change
 
-  //   componentDidMount() {
-  //     window.addEventListener("scroll", this.handleScroll)
-  //     window.addEventListener("gesturechange", this.handleScroll)
-  //   }
+  componentDidMount() {
+    console.log("mounted")
+    window.addEventListener("wheel", this.throttled)
+    // window.addEventListener("gesturechange", this.handleScroll)
+  }
 
-  //   componentWillUnmount() {
-  //     window.removeEventListener("scroll", this.handleScroll)
-  //     window.removeEventListener("gesturechange", this.handleScroll)
-  //   }
+  componentWillUnmount() {
+    window.removeEventListener("wheel", this.throttled)
+    // window.removeEventListener("gesturechange", this.handleScroll)
+  }
 
-  //   useEffect(() => {
-  //     ReactDOM.findDOMNode(SlideWrap).addEventListener("scroll", function () {
-  //       console.log("yo")
-  //     })
-
-  //     // This is the magic, this gives me "live" scroll events
-  //     ReactDOM.findDOMNode(SlideWrap).addEventListener(
-  //       "gesturechange",
-  //       function () {}
-  //     )
-  //   })
-  handleScroll = () => {
-    let currentScroll = document.documentElement.scrollTop
-    if (this.state.lastScroll - currentScroll < 0) {
-      this.positionLeft(currentScroll)
-    } else if (this.state.lastScroll - currentScroll > 0) {
-      this.positionRight(currentScroll)
+  handleScroll = e => {
+    if (e.wheelDelta > 0) {
+      this.positionLeft()
+    } else if (e.wheelDelta < 0) {
+      this.positionRight()
     }
   }
 
@@ -58,14 +51,18 @@ class Slider extends React.Component {
         ? { position: this.state.position + 1, lastScroll: scrollValue }
         : { position: 4, lastScroll: scrollValue }
     )
+    // Change state, wait 500 ms, and then cancel the remaining scrolls and reset function
+    _.delay(this.throttled.cancel, 500)
   }
 
-  positionRight = scrollValue =>
+  positionRight = scrollValue => {
     this.setState(
       this.state.position !== 0
         ? { position: this.state.position - 1, lastScroll: scrollValue }
         : { position: 0, lastScroll: scrollValue }
     )
+    _.delay(this.throttled.cancel, 500)
+  }
   render() {
     return (
       <SlideWrap>

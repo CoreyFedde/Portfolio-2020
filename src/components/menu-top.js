@@ -20,12 +20,14 @@ const Menu = () => (
 export default Menu
 
 const MenuWrap = styled.div`
-  margin: 0;
+  font-size: 25px;
+  margin: 25px 30px;
 `
 
 const StyledLink = styled(Link)`
   margin-right: 30px;
-  .active {
+  text-decoration: none;
+  &.active {
     border-bottom: 2px solid black;
   }
 `

@@ -16,16 +16,17 @@ const SideBar = ({ location, side }) => {
 export default SideBar
 
 export const SideNav = styled.div`
-  left: 0;
-  writing-mode: vertical-rl;
-  position: absolute;
-  text-orientation: mixed;
-  justify-content: flex-end;
-  align-items: center;
-  width: 64px;
-  font-size: 64px;
-  bottom: 0;
-  display: none;
+display: none;
+width: 100px;
+font-size: 100px;
+line-height: 100px;
+position: absolute;
+right: 0;
+top: 10px;
+writing-mode: vertical-rl;
+text-orientation: mixed;
+transform: rotate(180deg);
+z-index: -1;
   ${breakpoint("xl")`
   display: flex;
   `}
@@ -33,8 +34,12 @@ export const SideNav = styled.div`
 `
 
 export const MainNav = styled.div`
-  background: blue;
   display: block;
+  position: absolute;
+  right: 0;
+  font-size: 100px;
+  line-height: 100px;
+  bottom: 0;
   ${breakpoint("xl")`
   display: none;
   `}
