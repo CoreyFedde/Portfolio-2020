@@ -8,8 +8,9 @@ class Slider extends React.Component {
     super(props)
     this.state = { position: 1, lastScroll: 0 }
     this.scrollWindow = React.createRef()
+    // Might need to debounce instead of throttle here
     // Any scroll within 5000 ms counts as 1
-    this.throttled = _.throttle(e => this.handleScroll(e), 5000, {
+    this.throttled = _.throttle(e => this.handleScroll(e), 10000, {
       trailing: true,
     })
   }
@@ -17,6 +18,8 @@ class Slider extends React.Component {
   // Add in logic for gesture change
 
   componentDidMount() {
+    document.getElementsByTagName("body")[0].style.overflowY = "hidden"
+    document.getElementsByClassName("tl-wrapper")[0].style.overflowY = "hidden"
     console.log("mounted")
     window.addEventListener("wheel", this.throttled)
     // window.addEventListener("gesturechange", this.handleScroll)
@@ -24,10 +27,13 @@ class Slider extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener("wheel", this.throttled)
+    document.getElementsByTagName("body")[0].style.overflowY = "auto"
+    document.getElementsByClassName("tl-wrapper")[0].style.overflowY = "auto"
     // window.removeEventListener("gesturechange", this.handleScroll)
   }
 
   handleScroll = e => {
+    console.log("e", e)
     if (e.wheelDelta > 0) {
       this.positionLeft()
     } else if (e.wheelDelta < 0) {
@@ -88,7 +94,7 @@ export default Slider
 
 const SlideWrap = styled.div`
   position: absolute;
-  top: 0;
+  bottom: 50%;
 `
 
 export const Box = styled.div`
@@ -100,6 +106,9 @@ export const Box = styled.div`
   border: 1px solid black;
   position: absolute;
   transition: left 1s;
+  ${props =>
+    props.url &&
+    `background: url(${props.url}); background-size: cover; background-position: center;`}
 `
 
 // console.clear();
