@@ -1,12 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 import _ from "lodash"
-import ReactDOM from "react-dom"
+import Transition from "react-transition-group/Transition"
 
 class Slider extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { position: 1, lastScroll: 0 }
+    this.state = { position: 1, lastScroll: 0, in: false }
     this.scrollWindow = React.createRef()
     // Might need to debounce instead of throttle here
     // Any scroll within 5000 ms counts as 1
@@ -16,19 +16,31 @@ class Slider extends React.Component {
   }
 
   // Add in logic for gesture change
+  //   Also logic for touch pad
 
   componentDidMount() {
     document.getElementsByTagName("body")[0].style.overflowY = "hidden"
+    document.getElementsByTagName("body")[0].style.overflowX = "hidden"
     document.getElementsByClassName("tl-wrapper")[0].style.overflowY = "hidden"
+    document.getElementsByClassName("tl-wrapper")[0].style.overflowX = "hidden"
+    document.getElementById("layout").style.overflowX = "hidden"
+    document.getElementById("layout").style.overflowY = "hidden"
     console.log("mounted")
     window.addEventListener("wheel", this.throttled)
+    this.setState({
+      in: true,
+    })
     // window.addEventListener("gesturechange", this.handleScroll)
   }
 
   componentWillUnmount() {
     window.removeEventListener("wheel", this.throttled)
     document.getElementsByTagName("body")[0].style.overflowY = "auto"
+    document.getElementsByTagName("body")[0].style.overflowX = "auto"
     document.getElementsByClassName("tl-wrapper")[0].style.overflowY = "auto"
+    document.getElementsByTagName("body")[0].style.overflowX = "auto"
+    document.getElementById("layout").style.overflowX = "auto"
+    document.getElementById("layout").style.overflowY = "auto"
     // window.removeEventListener("gesturechange", this.handleScroll)
   }
 
@@ -41,11 +53,14 @@ class Slider extends React.Component {
     }
   }
 
-  renderBoxes = children => {
+  renderBoxes = (children, transitionState) => {
     const styledChildren = children.map((b, i) => {
       const placement = i * 450
       return React.cloneElement(b, {
-        style: { left: placement - this.state.position * 450 },
+        placement: placement,
+        statePosition: this.state.position,
+        active: this.state.position === i,
+        transitionState,
       })
     })
     return styledChildren
@@ -53,9 +68,9 @@ class Slider extends React.Component {
 
   positionLeft = scrollValue => {
     this.setState(
-      this.state.position !== 4
+      this.state.position !== 3
         ? { position: this.state.position + 1, lastScroll: scrollValue }
-        : { position: 4, lastScroll: scrollValue }
+        : { position: 3, lastScroll: scrollValue }
     )
     // Change state, wait 500 ms, and then cancel the remaining scrolls and reset function
     _.delay(this.throttled.cancel, 500)
@@ -71,21 +86,25 @@ class Slider extends React.Component {
   }
   render() {
     return (
-      <SlideWrap>
-        <button
-          onClick={this.positionRight}
-          style={{ position: "absolute", top: "450px" }}
-        >
-          Right
-        </button>
-        {this.renderBoxes(this.props.children)}
-        <button
-          onClick={this.positionLeft}
-          style={{ position: "absolute", top: "400px" }}
-        >
-          Left
-        </button>
-      </SlideWrap>
+      <Transition in={this.state.in} timeout={1000}>
+        {state => (
+          <SlideWrap transitionState={state}>
+            <button
+              onClick={this.positionRight}
+              style={{ position: "absolute", top: "450px" }}
+            >
+              Right
+            </button>
+            {this.renderBoxes(this.props.children, state)}
+            <button
+              onClick={this.positionLeft}
+              style={{ position: "absolute", top: "400px" }}
+            >
+              Left
+            </button>
+          </SlideWrap>
+        )}
+      </Transition>
     )
   }
 }
@@ -93,11 +112,22 @@ class Slider extends React.Component {
 export default Slider
 
 const SlideWrap = styled.div`
-  position: absolute;
-  bottom: 50%;
+  left: 150%;
+  transition: left 300ms ease-in-out 500ms;
+  position: relative;
+  left: ${({ transitionState }) =>
+    transitionState === "entering" || transitionState === "entered" ? "0" : {}};
+  bottom: 0;
 `
 
 export const Box = styled.div`
+  opacity: 0;
+  transition: opacity 10ms ease-in-out 500ms;
+  opacity: ${({ transitionState }) =>
+    transitionState === "entering" || transitionState === "entered" ? 1 : {}};
+  // Can we have every card fly in?
+  //   transition: left 300ms ease-in-out 1000ms;
+  //   left: 50%;
   box-shadow: -20px 26px 2px 7px rgba(0, 0, 255, 0.2);
   background: white;
   display: inline-block;
@@ -105,10 +135,23 @@ export const Box = styled.div`
   height: 400px;
   border: 1px solid black;
   position: absolute;
-  transition: left 1s;
+  ${({ transitionState }) =>
+    transitionState === "entered" && "transition: left 1s"};
+  left: calc(50% - 450px);
+  left: calc(
+    50% - 225px -
+      ${props => {
+        if (props.active) {
+          return "0px"
+        }
+        return !_.isNil(props.placement) && !_.isNil(props.statePosition)
+          ? `${props.placement - props.statePosition * 450}px`
+          : "0px"
+      }}
+  );
   ${props =>
     props.url &&
-    `background: url(${props.url}); background-size: cover; background-position: center;`}
+    `background: url(${props.url}); background-size: cover; background-position: center;`};
 `
 
 // console.clear();

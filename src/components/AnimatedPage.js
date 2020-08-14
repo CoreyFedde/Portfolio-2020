@@ -35,6 +35,7 @@ class AnimatedPage extends React.Component {
 
   render() {
     return (
+      // Do these need to be page transition or should these just be transitions on load and outside of Layout?
       <PageTransition duration={duration}>
         <Transition in={this.state.in} timeout={1000}>
           {state => <Page transitionState={state}>{this.props.children}</Page>}
@@ -83,7 +84,7 @@ const Page = styled.div`
         : {}};
     `}
   ${breakpoint("xxl")`
-  max-width: 1200px;
+  max-width: 1100px;
   left: ${({ transitionState }) =>
     transitionState === "entering" || transitionState === "entered"
       ? "calc(-8% - 26px)"

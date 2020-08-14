@@ -24,7 +24,7 @@ const theme = {
 const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      <LayoutStyles>
+      <LayoutStyles id="layout">
         {console.log("children", children)}
         <Location>
           {({ location }) => <SideBar side location={location} />}
@@ -115,7 +115,7 @@ const Backdrop = styled.div`
   `}
   ${breakpoint("xxl")`
     left: 4%;
-    max-width: 1200px;
+    max-width: 1100px;
     
   `}
 `
