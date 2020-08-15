@@ -21,7 +21,7 @@ export default Menu
 
 const MenuWrap = styled.div`
   font-size: 25px;
-  margin: 25px 30px;
+  margin-left: 10px;
 `
 
 const StyledLink = styled(Link)`

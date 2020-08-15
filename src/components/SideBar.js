@@ -7,30 +7,32 @@ import breakpoint from "styled-components-breakpoint"
 const SideBar = ({ location, side }) => {
   const title = _.find(pages, { route: `${location.pathname}` })
   return side ? (
-    <SideNav side={side}>{title.page || "test"}</SideNav>
+    <SideNav>{title.page || "test"}</SideNav>
   ) : (
-    <MainNav side={side}>{title.page || "test"}</MainNav>
+    <MainNav>{title.page || "test"}</MainNav>
   )
 }
 
 export default SideBar
 
 export const SideNav = styled.div`
-display: none;
-width: 100px;
-font-size: 100px;
-line-height: 100px;
-position: absolute;
-right: 0;
-top: 10px;
-writing-mode: vertical-rl;
-text-orientation: mixed;
-transform: rotate(180deg);
-z-index: -1;
+  display: none;
+  width: 400px;
+  min-width: 200px;
+  font-size: 200px;
+  line-height: 100px;
+  background: blue;
+  height: 100vh;
+  height: 600px;
+  top: 50px;
+  position: relative;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  justify-content: flex-end;
+  align-items: center;
   ${breakpoint("xl")`
   display: flex;
   `}
-  // ${props => (props.side ? "max-width: 75%; width: 1000px" : "")};
 `
 
 export const MainNav = styled.div`
@@ -45,11 +47,23 @@ export const MainNav = styled.div`
   `}
 `
 
-const VerticalLine = styled.div`
-  border-left: 6px solid grey;
-  height: 500px;
-  position: absolute;
-  right: 10px;
-  margin-left: -3px;
-  top: calc(50% - 250px);
-`
+// export const SideNav = styled.div`
+//   display: none;
+//   width: 200px;
+//   font-size: 100px;
+//   line-height: 100px;
+//   // position: absolute;
+//   // left: 0;
+//   // bottom: 0;
+//   writing-mode: vertical-rl;
+//   text-orientation: mixed;
+//   transform: rotate(180deg);
+//   z-index: -1;
+//   background: blue;
+//   height: 80%;
+//   top: 50px;
+//   position: relative;
+//   ${breakpoint("xl")`
+//   display: flex;
+//   `}
+// `

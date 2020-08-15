@@ -14,7 +14,9 @@ const theme = {
   breakpoints: {
     xs: 0,
     sm: 576,
+    custom2: 600,
     md: 768,
+    custom: 887,
     lg: 992,
     xl: 1100,
     xxl: 1300,
@@ -25,12 +27,11 @@ const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutStyles id="layout">
-        {console.log("children", children)}
-        <Location>
-          {({ location }) => <SideBar side location={location} />}
-        </Location>
         <Edges>
           <MainSpace>
+            <Location>
+              {({ location }) => <SideBar side location={location} />}
+            </Location>
             <Backdrop>
               <Header>
                 <Menu />
@@ -42,7 +43,7 @@ const Layout = ({ children }) => {
             </Backdrop>
           </MainSpace>
         </Edges>
-        <InfoBar>Corey Fedde</InfoBar>
+        {/* <InfoBar>Corey Fedde</InfoBar> */}
       </LayoutStyles>
     </ThemeProvider>
   )
@@ -92,7 +93,7 @@ const MainSpace = styled.main`
   justify-content: center;
 
   ${breakpoint("xl")`
-  max-width: 80%;
+  max-width: 90%;
   min-width: 900px;
   `}
 `
@@ -104,19 +105,20 @@ const Backdrop = styled.div`
   position: relative;
   top: 0;
   left: 0;
-  background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/geometry2.png);
 
   ${breakpoint("xl")`
-  background: yellow;
+  // background: yellow;
     top: 50px;
-    left: 2%;
+    // left: 2%;
     min-width: 900px;
     height: 90%;
   `}
   ${breakpoint("xxl")`
-    left: 4%;
+    // left: 4%;
     max-width: 1100px;
-    
+    background: transparent;
+    height: 100vh;
+    position:relative;
   `}
 `
 
@@ -129,7 +131,7 @@ const LayoutStyles = styled.section`
   font-family: "Roboto", sans-serif;
 
   ${breakpoint("xl")`
-  background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/geometry2.png);
+  // background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/geometry2.png);
 
     // align-items: center;
   `}
