@@ -3,8 +3,9 @@ import styled from "styled-components"
 import { Link } from "gatsby"
 
 export const pages = [
-  { page: "Work", route: "/" },
-  { page: "About", route: "/about" },
+  { page: "Home", route: "/" },
+  { page: "Work", route: "/work" },
+  { page: "Contact", route: "/contact" },
 ]
 
 const Menu = () => (
