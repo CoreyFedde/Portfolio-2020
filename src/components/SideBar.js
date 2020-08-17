@@ -16,12 +16,15 @@ const SideBar = ({ location, side }) => {
 export default SideBar
 
 export const SideNav = styled.div`
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 240px;
   display: none;
   width: 400px;
   min-width: 200px;
   font-size: 200px;
   line-height: 100px;
-  background: blue;
+  background: #4a6fa5;
   height: 100vh;
   height: 600px;
   top: 50px;
@@ -30,6 +33,8 @@ export const SideNav = styled.div`
   text-orientation: mixed;
   justify-content: flex-end;
   align-items: center;
+  color: #f5f4f5;
+  text-transform: uppercase;
   ${breakpoint("xl")`
   display: flex;
   `}
@@ -39,9 +44,13 @@ export const MainNav = styled.div`
   display: block;
   position: absolute;
   right: 0;
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
   font-size: 100px;
+  color: #f5f4f5;
   line-height: 100px;
   bottom: 0;
+  text-transform: uppercase;
   ${breakpoint("xl")`
   display: none;
   `}

@@ -128,8 +128,8 @@ export const Box = styled.div`
   // Can we have every card fly in?
   //   transition: left 300ms ease-in-out 1000ms;
   //   left: 50%;
-  box-shadow: -20px 26px 2px 7px rgba(0, 0, 255, 0.2);
-  background: white;
+  box-shadow: -20px 26px 2px 7px rgba(88, 163, 240, 0.2);
+  background: #ffffff;
   display: inline-block;
   width: 400px;
   height: 400px;

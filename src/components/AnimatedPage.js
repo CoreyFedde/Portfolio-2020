@@ -52,12 +52,12 @@ class AnimatedPage extends React.Component {
 const Page = styled.div`
   height: 90%;
   max-height: 1000px;
-  background-color: lightgrey;
+  background-color: #f5f4f5;
   ${breakpoint("sm")`
     transition: left ${duration}ms ease-in-out;
     left: 50%;
     position: absolute;
-    box-shadow: -20px 26px 2px 7px rgba(0, 0, 255, 0.2);
+    box-shadow: -20px 26px 2px 7px rgba(255, 255, 255, 0.5);
     width: 100%;
     margin: 0 auto;
     left: ${({ transitionState }) =>

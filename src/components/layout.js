@@ -58,7 +58,7 @@ Layout.propTypes = {
 export default Layout
 
 const Header = styled.div`
-  background: yellow;
+  background: #4a6fa5;
 
   ${breakpoint("sm")`
   height: 150px;
@@ -107,14 +107,11 @@ const Backdrop = styled.div`
   left: 0;
 
   ${breakpoint("xl")`
-  // background: yellow;
     top: 50px;
-    // left: 2%;
     min-width: 900px;
     height: 90%;
   `}
   ${breakpoint("xxl")`
-    // left: 4%;
     max-width: 1100px;
     background: transparent;
     height: 100vh;
@@ -127,14 +124,9 @@ const LayoutStyles = styled.section`
   min-height: 100vh;
   display: flex;
   position: relative;
-  font-family: "Open Sans", sans-serif;
-  font-family: "Roboto", sans-serif;
-
-  ${breakpoint("xl")`
-  // background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/geometry2.png);
-
-    // align-items: center;
-  `}
+  font-family: "Montserrat", sans-serif;
+  font-family: "Raleway", sans-serif;
+  color: #1c3144;
 `
 
 {
@@ -142,7 +134,7 @@ const LayoutStyles = styled.section`
           <Grid.Unit
             size={1 / 5}
             style={{
-              backgroundColor: "yellow",
+              backgroundColor: "#4A6FA5",
               display: "flex",
               width: "300px",
               minWidth: "300px",
@@ -167,7 +159,7 @@ const LayoutStyles = styled.section`
           </Grid.Unit>
           <Grid.Unit
             size={0.25 / 5}
-            style={{ backgroundColor: "yellow", display: "flex" }}
+            style={{ backgroundColor: "#4A6FA5", display: "flex" }}
           />
         </StyledGrid> */
 }

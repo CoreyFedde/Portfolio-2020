@@ -26,9 +26,21 @@ const MenuWrap = styled.div`
 `
 
 const StyledLink = styled(Link)`
+  font-family: "Montserrat", sans-serif;
+  font-size: 32px;
+  font-weight: 300;
   margin-right: 30px;
   text-decoration: none;
+  color: #1c3144;
   &.active {
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #1c3144;
+    font-weight: 700;
+  }
+  &:hover {
+    font-weight: 700;
+  }
+
+  &:visited {
+    color: #1c3144;
   }
 `
