@@ -1,13 +1,24 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
+import classNames from "classnames"
 import { pages } from "./menu-top"
 import _ from "lodash"
 import breakpoint from "styled-components-breakpoint"
 
 const SideBar = ({ location, side }) => {
   const title = _.find(pages, { route: `${location.pathname}` })
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  })
   return side ? (
-    <SideNav>{title.page || "test"}</SideNav>
+    <SideNav>
+      <Wrap>
+        <FloatingText className={`${mounted ? "transform" : ""}`}>
+          {title.page || "test"}
+        </FloatingText>
+      </Wrap>
+    </SideNav>
   ) : (
     <MainNav>{title.page || "test"}</MainNav>
   )
@@ -26,23 +37,34 @@ export const SideNav = styled.div`
   top: 50px;
   position: relative;
 
-  justify-content: flex-start;
-  align-items: center;
-  color: #f5f4f5;
-  font-family: "Raleway", sans-serif;
-  font-weight: 700;
-  font-size: 240px;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  text-transform: uppercase;
-  // mix-blend-mode: screen; // could be a cool option
+  justify-content: center;
+  align-items: flex-start;
 
   ${breakpoint("xl")`
   display: flex;
   `}
 `
 
-const FloatingText = styled.h1``
+const Wrap = styled.div`
+  position: relative;
+  overflow: hidden;
+`
+
+const FloatingText = styled.h1`
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  text-transform: uppercase;
+  // mix-blend-mode: screen; // could be a cool option
+  color: #f5f4f5;
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 240px;
+  transform: translateX(-240px);
+  &.transform {
+    transform: translateX(0);
+    transition: all 0.5s ease 0.5s;
+  }
+`
 
 export const MainNav = styled.div`
   display: block;
