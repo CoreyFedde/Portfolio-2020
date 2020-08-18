@@ -16,29 +16,33 @@ const SideBar = ({ location, side }) => {
 export default SideBar
 
 export const SideNav = styled.div`
+  display: none;
+  width: 400px;
+  min-width: 300px;
+  line-height: 100px;
+  background: #4a6fa5;
+  height: 75vh;
+  min-height: 600px;
+  top: 50px;
+  position: relative;
+
+  justify-content: flex-start;
+  align-items: center;
+  color: #f5f4f5;
   font-family: "Raleway", sans-serif;
   font-weight: 700;
   font-size: 240px;
-  display: none;
-  width: 400px;
-  min-width: 200px;
-  font-size: 200px;
-  line-height: 100px;
-  background: #4a6fa5;
-  height: 100vh;
-  height: 600px;
-  top: 50px;
-  position: relative;
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  justify-content: flex-end;
-  align-items: center;
-  color: #f5f4f5;
   text-transform: uppercase;
+  // mix-blend-mode: screen; // could be a cool option
+
   ${breakpoint("xl")`
   display: flex;
   `}
 `
+
+const FloatingText = styled.h1``
 
 export const MainNav = styled.div`
   display: block;

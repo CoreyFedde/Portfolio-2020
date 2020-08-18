@@ -11,7 +11,7 @@ export const pages = [
 const Menu = () => (
   <MenuWrap>
     {pages.map(p => (
-      <StyledLink to={p.route} activeClassName="active">
+      <StyledLink to={p.route} activeClassName="active" title={p.page}>
         {p.page}
       </StyledLink>
     ))}
@@ -31,6 +31,7 @@ const StyledLink = styled(Link)`
   font-weight: 300;
   margin-right: 30px;
   text-decoration: none;
+  display: inline-block;
   color: #1c3144;
   &.active {
     border-bottom: 2px solid #1c3144;
@@ -38,6 +39,15 @@ const StyledLink = styled(Link)`
   }
   &:hover {
     font-weight: 700;
+  }
+  &::after {
+    display: block;
+    content: attr(title);
+    font-weight: 700;
+    height: 1px;
+    color: transparent;
+    overflow: hidden;
+    visibility: hidden;
   }
 
   &:visited {
