@@ -12,6 +12,19 @@ export const Title = styled.h2`
   align-items: center;
 `
 
+export const SubTitle = styled.h3`
+  font-family: Montserrat, sans-serif;
+  font-size: 55px;
+  font-weight: 400;
+  letter-spacing: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  margin: 0 auto;
+  text-align: center;
+`
+
 export const Description = styled.h5`
   font-family: Montserrat, sans-serif;
   font-size: 24px;
