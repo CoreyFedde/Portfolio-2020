@@ -3,7 +3,11 @@ import styled, { ThemeProvider } from "styled-components"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Title, Description } from "../components/TypographyStyledComponents"
+import {
+  Title,
+  Description,
+  TitleContainer,
+} from "../components/TypographyStyledComponents"
 import {
   ImageDiv,
   StyledButtonLink,
@@ -13,7 +17,9 @@ const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <InnerContainer>
-      <Title>Corey Fedde</Title>
+      <TitleContainer>
+        <Title>Corey Fedde</Title>
+      </TitleContainer>
       <MainContent>
         <div>
           <Self />

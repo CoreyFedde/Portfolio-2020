@@ -5,6 +5,10 @@ export const Title = styled.h2`
   font-weight: 600;
   font-size: 96px;
   color: #1c3144;
+  margin-bottom: 0;
+`
+
+export const TitleContainer = styled.div`
   text-align: center;
   flex: 1;
   display: flex;
@@ -16,8 +20,7 @@ export const SubTitle = styled.h3`
   font-family: Montserrat, sans-serif;
   font-size: 55px;
   font-weight: 400;
-  letter-spacing: 1.2;
-  display: flex;
+∂  display: flex;
   align-items: center;
   justify-content: center;
   width: 600px;
