@@ -2,106 +2,78 @@ import React from "react"
 import styled from "styled-components"
 import _ from "lodash"
 import Transition from "react-transition-group/Transition"
+import {
+  Title,
+  Description,
+  TitleContainer,
+} from "./TypographyStyledComponents"
 
 class Slider extends React.Component {
   constructor(props) {
     super(props)
     this.state = { position: 1, lastScroll: 0, in: false }
-    this.scrollWindow = React.createRef()
-    // Might need to debounce instead of throttle here
-    // Any scroll within 5000 ms counts as 1
-    this.throttled = _.throttle(e => this.handleScroll(e), 10000, {
-      trailing: true,
-    })
   }
 
   // Add in logic for gesture change
   //   Also logic for touch pad
 
   componentDidMount() {
-    document.getElementsByTagName("body")[0].style.overflowY = "hidden"
-    document.getElementsByTagName("body")[0].style.overflowX = "hidden"
-    document.getElementsByClassName("tl-wrapper")[0].style.overflowY = "hidden"
-    document.getElementsByClassName("tl-wrapper")[0].style.overflowX = "hidden"
-    document.getElementById("layout").style.overflowX = "hidden"
-    document.getElementById("layout").style.overflowY = "hidden"
-    console.log("mounted")
-    window.addEventListener("wheel", this.throttled)
     this.setState({
       in: true,
     })
-    // window.addEventListener("gesturechange", this.handleScroll)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("wheel", this.throttled)
-    document.getElementsByTagName("body")[0].style.overflowY = "auto"
-    document.getElementsByTagName("body")[0].style.overflowX = "auto"
-    document.getElementsByClassName("tl-wrapper")[0].style.overflowY = "auto"
-    document.getElementsByTagName("body")[0].style.overflowX = "auto"
-    document.getElementById("layout").style.overflowX = "auto"
-    document.getElementById("layout").style.overflowY = "auto"
-    // window.removeEventListener("gesturechange", this.handleScroll)
-  }
-
-  handleScroll = e => {
-    console.log("e", e)
-    if (e.wheelDelta > 0) {
-      this.positionLeft()
-    } else if (e.wheelDelta < 0) {
-      this.positionRight()
-    }
+    // console.log(document.getElementById("test").scrollTop)
+    // const rect1 = document.getElementById("test").getBoundingClientRect()
+    // const rect2 = document.getElementById("1").getBoundingClientRect()
+    // let overlap = !(
+    //   rect1.right < rect2.left ||
+    //   rect1.left > rect2.right ||
+    //   rect1.bottom < rect2.top ||
+    //   rect1.top > rect2.bottom
+    // )
+    // if (overlap) {
+    //   console.log("yikes")
+    // }
+    // let options = {
+    //   root: document.querySelector("#test"),
+    //   rootMargin: "0px",
+    //   threshold: 0.4,
+    // }
+    // let observer = new IntersectionObserver(() => console.log("whoa"), options)
+    // observer.observe(document.querySelector("#test-2"))
+    // let observer = new IntersectionObserver(entries => {
+    //   console.log("wow", entries)
+    //   if (entries[0].boundingClientRect.y < 0) {
+    //     console.log("Past 100px!")
+    //   } else {
+    //     console.log("Not past 100px")
+    //   }
+    // })
+    // observer.observe(document.querySelector("#test"))
   }
 
   renderBoxes = (children, transitionState) => {
     const styledChildren = children.map((b, i) => {
       const placement = i * 450
+      const id = `test-${i}`
       return React.cloneElement(b, {
         placement: placement,
         statePosition: this.state.position,
         active: this.state.position === i,
         transitionState,
+        id,
       })
     })
     return styledChildren
   }
 
-  positionLeft = scrollValue => {
-    this.setState(
-      this.state.position !== 3
-        ? { position: this.state.position + 1, lastScroll: scrollValue }
-        : { position: 3, lastScroll: scrollValue }
-    )
-    // Change state, wait 500 ms, and then cancel the remaining scrolls and reset function
-    _.delay(this.throttled.cancel, 500)
-  }
-
-  positionRight = scrollValue => {
-    this.setState(
-      this.state.position !== 0
-        ? { position: this.state.position - 1, lastScroll: scrollValue }
-        : { position: 0, lastScroll: scrollValue }
-    )
-    _.delay(this.throttled.cancel, 500)
-  }
   render() {
     return (
       <Transition in={this.state.in} timeout={1000}>
         {state => (
           <SlideWrap transitionState={state}>
-            <button
-              onClick={this.positionRight}
-              style={{ position: "absolute", top: "450px" }}
-            >
-              Right
-            </button>
+            <InvisiBox />
             {this.renderBoxes(this.props.children, state)}
-            <button
-              onClick={this.positionLeft}
-              style={{ position: "absolute", top: "400px" }}
-            >
-              Left
-            </button>
+            <InvisiBox />
           </SlideWrap>
         )}
       </Transition>
@@ -112,19 +84,36 @@ class Slider extends React.Component {
 export default Slider
 
 const SlideWrap = styled.div`
-  left: 150%;
-  transition: left 300ms ease-in-out 500ms;
+  //   left: 150%;
+  //   transition: left 300ms ease-in-out 500ms;
   position: relative;
-  left: ${({ transitionState }) =>
-    transitionState === "entering" || transitionState === "entered" ? "0" : {}};
-  bottom: 0;
+  //   bottom: 0;
+  width: 500px;
+  height: 1000px;
+  position: absolute;
+  left: calc(50% - 250px);
+  top: calc(50% - 500px);
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  //   margin: 100px 0;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
+
+const WatchPixel = styled.div`
+  //   position: absolute;
+  width: 1px;
+  height: 1px;
+  top: 100px;
+  left: 0;
 `
 
 export const Box = styled.div`
-  opacity: 0;
-  transition: opacity 10ms ease-in-out 500ms;
-  opacity: ${({ transitionState }) =>
-    transitionState === "entering" || transitionState === "entered" ? 1 : {}};
+  //   opacity: 0;
+  //   transition: opacity 10ms ease-in-out 500ms;
   // Can we have every card fly in?
   //   transition: left 300ms ease-in-out 1000ms;
   //   left: 50%;
@@ -134,24 +123,28 @@ export const Box = styled.div`
   width: 400px;
   height: 400px;
   border: 1px solid black;
-  position: absolute;
-  ${({ transitionState }) =>
-    transitionState === "entered" && "transition: left 1s"};
-  left: calc(50% - 450px);
-  left: calc(
-    50% - 225px -
-      ${props => {
-        if (props.active) {
-          return "0px"
-        }
-        return !_.isNil(props.placement) && !_.isNil(props.statePosition)
-          ? `${props.placement - props.statePosition * 450}px`
-          : "0px"
-      }}
-  );
+  margin: 100px 50px;
+  scroll-snap-align: center;
+  //   position: absolute;
   ${props =>
     props.url &&
     `background: url(${props.url}); background-size: cover; background-position: center;`};
+  &::after {
+    content: " - Remember this";
+    background-color: yellow;
+    color: red;
+    font-weight: bold;
+  }
+`
+
+export const InvisiBox = styled(Box)`
+  width: 400px;
+  height: 400px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  scroll-snap-align: none;
+  margin: 0;
 `
 
 // console.clear();

@@ -20,7 +20,7 @@ export const SubTitle = styled.h3`
   font-family: Montserrat, sans-serif;
   font-size: 55px;
   font-weight: 400;
-∂  display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 600px;
